@@ -3,7 +3,8 @@ import json
 import sys
 import os
 
-INPUT_FILE = 'testdata.json' # Constant variables are usually in ALL CAPS
+INPUT_FILE = '/Users/nataliemelas-kyriazi/algo-comp-2022/assignment1/testdata.json'
+# Constant variables are usually in ALL CAPS
 
 class User:
     def __init__(self, name, gender, preferences, grad_year, responses):
@@ -15,9 +16,17 @@ class User:
 
 
 # Takes in two user objects and outputs a float denoting compatibility
+# x_normalized = (x - x_min)/(x_max - x_min)
 def compute_score(user1, user2):
-    # YOUR CODE HERE
-    return 0
+    compat = 1
+    if(user1.gender == user2.gender):
+        compat = compat * (0.75)
+    if(user1.grad_year > user2.grad_year + 3 or user1.grad_year < user2.grad_year - 3):
+        compat = 0
+    for i in range(0, min(len(user2.responses), len(user1.responses))):
+        if(user1.responses[i] == user2.responses[i]):
+            compat = compat * 5
+    return compat
 
 
 if __name__ == '__main__':
